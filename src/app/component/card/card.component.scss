@@ -1,0 +1,38 @@
+.card.card-columns {
+    display: flex;
+    flex-grow: 1;
+    margin: 0.5em;
+    max-width: 31em;
+
+    &:hover{
+        box-shadow: 4px 4px 3px 3px #0d0c0c61;
+    }
+
+    .card-header.text-center {
+        background: #4b7f6d;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .card-footer.text-center {
+        cursor: pointer;
+    }
+
+    .no-data {
+        align-items: center;
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+        white-space: nowrap;
+    }
+}
+
+.modal-content{
+
+    button.close:focus:focus-visible {
+        outline: none;
+        span{
+            outline: none;
+        }
+    }
+}

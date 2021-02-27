@@ -1,0 +1,30 @@
+
+
+<div class="jumbotron jumbotron-fluid text-center">
+
+    <h1>WEATHER FORECAST</h1>
+  
+      <div class="button-container">
+        <button
+          type="button"
+          *ngIf="!isTimerStarted"
+          class="btn btn-success"
+          (click)="startTimer()" 
+        >
+          Auto-refresh data in every 30 minutes
+  
+        </button>
+  
+        <button
+          type="button"
+          class="btn btn-danger"
+          *ngIf="isTimerStarted"
+          (click)="stopTimer()"
+        >
+          Stop auto-refreshing
+        </button>
+  
+      </div>
+  
+  </div>
+  

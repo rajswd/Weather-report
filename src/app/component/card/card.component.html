@@ -1,0 +1,41 @@
+
+<div  class="card card-columns">
+
+    <div class="card-header text-center"> 
+
+        {{cityReport?.name}}
+
+    <button type="button" class="close" aria-label="Close" (click)="deleteCity()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <ng-container  *ngIf="cityReport?.isSuccess;else noDataTemplate">
+        
+        <div class="card-body">
+
+            <div class="row">
+                <label  class="label">Avg Temparature </label>
+                <span class="pad-5"> : </span>
+                <span>{{cityReport?.main?.temp}}</span>
+            </div>
+            <div class="row">
+                <label class="label">Wind strength</label>
+                <span class="pad-5"> : </span>
+                <span class="">{{cityReport?.wind?.speed}}</span>
+            </div>
+        </div>
+
+        <div class="card-footer text-center">
+            <button class="btn btn-warning" (click)="openWeatherDetail()">Weather Forecast</button>
+        </div>
+
+    </ng-container>
+        
+  </div>
+
+<ng-template #noDataTemplate>
+    <h6 class="no-data">
+        No data available.
+    </h6>
+</ng-template>

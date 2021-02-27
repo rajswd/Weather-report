@@ -1,0 +1,57 @@
+
+<ng-template #contentDlg let-c="close" let-d="dismiss">
+
+    <div class="modal-header">
+        <img class="image" [src]="'http://openweathermap.org/img/wn/'+ cityReport?.weather[0].icon+'@2x.png'" />
+        <h6 class="modal-title" id="modal-basic-title">
+            Weather Forecast
+
+            <p> 
+                {{cityReport?.city?.name}} ( {{cityReport?.city?.country}} ) 
+            </p>          
+            <p> 
+                {{cityReport?.dt_txt}} 
+            </p>          
+        </h6>
+        
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+
+    <div class="modal-body">
+
+        <div class="row">
+            <label class="label  col-xm-6">Weather </label>
+            <span>{{cityReport?.weather[0]?.description}}</span>
+        </div>
+
+        <div class="row">
+            <label class="label  col-xm-6">Min Temparature</label>
+            <span>{{cityReport?.main?.temp_min}}</span>
+        </div>
+
+        <div class="row">
+            <label class="label  col-xm-6">Max Temparature</label>
+            <span>{{cityReport?.main?.temp_max}}</span>
+        </div>
+
+        <div class="row">
+            <label class="label  col-xm-6">Avg Temparature</label>
+            <span>{{cityReport?.main?.temp}}</span>
+        </div>
+
+
+        <div class="row">
+            <label class="label  col-xm-6">Humidity</label>
+            <span>{{cityReport?.main?.humidity}}</span>
+        </div>
+
+        <div class="row">
+            <label class="label  col-xm-6">Wind Speed</label>
+            <span>{{cityReport?.wind?.speed}}</span>
+        </div>
+    </div>
+
+</ng-template>

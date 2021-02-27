@@ -1,0 +1,22 @@
+
+.jumbotron{
+    background: transparent;
+    padding-bottom: 1.5em;
+
+    .button-container {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        white-space: nowrap;
+    }
+
+    .refresh-icon{
+
+        font-size: 2.5em;
+        margin: .2em 0 0.5em;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 4em;
+    }
+}

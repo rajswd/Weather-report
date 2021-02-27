@@ -6,10 +6,16 @@ import { AppComponent } from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CardComponent } from './component/card/card.component';
+import { HeaderComponent } from './component/header/header.component';
+import { DialogueComponent } from './component/dialogue/dialogue.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    DialogueComponent,
+    AppComponent,
+    CardComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

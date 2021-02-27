@@ -1,91 +1,108 @@
-
-<div class="jumbotron jumbotron-fluid text-center">
-  <h1>WEATHER FORECAST</h1>
-
-    <div class="button-container">
-      <button type="button" class="btn btn-success" *ngIf="!isTimerStarted" (click)="startTimer()" >Auto-refresh data in every 30 minutes</button>
-      <button type="button" class="btn btn-danger" *ngIf="isTimerStarted" (click)="stopTimer()">Stop auto-refreshing</button>
-    </div>
-
-    <i class="fas fa-sync"></i>
-
+<div class="loader" *ngIf="isLoading">
+  <div class="loading"> Loading...</div>
 </div>
 
-<div class="container-fluid form-inline">
-    <div class="form-group mx-sm-3 mb-2">
-      <input type="text" class="form-control" #cityInput id="cityInput" aria-describedby="emailHelp" placeholder="Enter city name">
-    </div>
+<app-dialogue #appDialogue></app-dialogue>
 
-    <button
-      type="submit"
-      class="btn btn-primary"
-      (click)="addCity(cityInput)"
-    >Add</button>
-</div>
+<app-header (headerEvent)="headerEvent($event)"></app-header>
 
-<div class="container" role="main">
+<div class="container-fluid">
+
+  <p class="toastMessage">
+
+    <ngb-alert
+    *ngIf="toastMessage.showToast"
+    [type]="toastMessage.type"
+    [dismissible]="false"
+    (closed)="toastMessage.showToast = false"
+    >
+      {{toastMessage.message}}
+
+    </ngb-alert>
+
+  </p>
+
+  <div class="form-inline">
   
-  <div class="row">
-        <div  *ngFor="let subject of bhSubjectList; let indx = index;" class="card card-columns">
-              <div class="card-header text-center"> 
-                {{subject?.name}}
-                <button type="button" class="close" aria-label="Close" (click)="deleteCity(indx)">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <ng-container  *ngIf="subject?.isSuccess;else noData">
-                <div class="card-body">
-                    <div class="row">
-                        <label  class="label">Avg Temparature </label>
-                        <span class="pad-5"> : </span>
-                        <span>{{subject?.main?.temp}}</span>
-                      </div>
-                      <div class="row">
-                        <label class="label">Wind strength</label>
-                        <span class="pad-5"> : </span>
-                        <span class="">{{subject?.wind?.speed}}</span>
-                      </div>
-                </div>
-                <div class="card-footer text-center">
-                    <button class="btn btn-warning" (click)="open(content, subject)">Weather Forecast</button>
-                </div>
-              </ng-container>
-        </div>
+      <div class="form-group mx-sm-3 mb-2">
+
+        <input
+          type="text"
+          class="form-control"
+          #cityInput
+          id="cityInput"
+          aria-describedby="emailHelp"
+          placeholder="Enter city name"
+          (keyup.enter)="addCity(cityInput)"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="addCity(cityInput)"
+      >
+        Add
+      </button>
+
+      <div class="refresh-icon" (click)="getWetherList()">
+
+        <ng-template #helpText>Refresh...</ng-template>
+        <button type="button" class="btn btn-outline-secondary" [ngbTooltip]="helpText">
+            <i class="fas fa-sync"></i>
+        </button>
+    
+      </div>
+      
   </div>
 
-  <ng-template #content let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h6 class="modal-title" id="modal-basic-title">Weather Forecast</h6>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="blk">
-          <label  class="label">Country</label> <span class="pad-5"> : </span><span>{{selectedCity?.sys?.country}}</span>
-        </div>
-        <div class="blk">
-          <label class="label">Avg Temparature</label> <span class="pad-5"> : </span> <span>{{selectedCity?.main?.temp}}</span>
-        </div>
-        <div class="blk">
-          <label class="label">Wind strength</label> <span class="pad-5"> : </span> <span>{{selectedCity?.wind?.speed}}</span>
-        </div>
-        <div class="blk">
-          <label class="label">Wind strength</label> <span class="pad-5"> : </span> <span>{{selectedCity?.wind?.speed}}</span>
-        </div>
-        <div class="blk">
-          <label class="label">Wind strength</label> <span class="pad-5"> : </span> <span>{{selectedCity?.wind?.speed}}</span>
-        </div>
-        <div class="blk">
-          <label class="label">Wind strength</label> <span class="pad-5"> : </span> <span>{{selectedCity?.wind?.speed}}</span>
-        </div>
-        <div class="blk">
-          <label class="label">Weather description</label> <span class="pad-5"> : </span> <span>{{selectedCity?.weather[0].description}}</span>
-        </div>
-      </div>
-    </ng-template>
-    
+  <div class="container" role="main">
 
-  <ng-template #noData>
-    <h6 class="no-data">No data available...</h6>
+    <div  class="card-container">
+    
+      <app-card
+        *ngFor="let cityData of bhSubjectList; let indx = index;"
+        [cityReport]="cityData"
+        (onDeleteWidget)="deleteCity($event)"
+        (onWeatherForcast)="openDlg($event)"
+      >
+      </app-card>
+
+      </div>
+
+  </div>
+</div>
+
+<!-- 
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h6 class="modal-title" id="modal-basic-title">Weather Forecast</h6>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="blk">
+        <label  class="label">Country</label> <span class="pad-5"> : </span><span>{{selectedCity?.sys?.country}}</span>
+      </div>
+      <div class="blk">
+        <label class="label">Avg Temparature</label> <span class="pad-5"> : </span> <span>{{selectedCity?.main?.temp}}</span>
+      </div>
+      <div class="blk">
+        <label class="label">Wind strength</label> <span class="pad-5"> : </span> <span>{{selectedCity?.wind?.speed}}</span>
+      </div>
+      <div class="blk">
+        <label class="label">Wind strength</label> <span class="pad-5"> : </span> <span>{{selectedCity?.wind?.speed}}</span>
+      </div>
+      <div class="blk">
+        <label class="label">Wind strength</label> <span class="pad-5"> : </span> <span>{{selectedCity?.wind?.speed}}</span>
+      </div>
+      <div class="blk">
+        <label class="label">Wind strength</label> <span class="pad-5"> : </span> <span>{{selectedCity?.wind?.speed}}</span>
+      </div>
+      <div class="blk">
+        <label class="label">Weather description</label> <span class="pad-5"> : </span> <span>{{selectedCity?.weather[0].description}}</span>
+      </div>
+    </div>
   </ng-template>
+   -->
