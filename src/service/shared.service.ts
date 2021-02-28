@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { IWeatherForecast } from 'src/app/component/interface/IweatherData';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,6 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 export class SharedService {
 
   weatherData$:Subject<any> = new Subject();
-  weatherForecast$:Subject<any> = new Subject();
   
   constructor(private http: HttpClient) { }
 
@@ -24,9 +24,9 @@ export class SharedService {
       });
   }
 
-  getWeatherForecastData(city:string):Observable<any>{
-    const url = ` http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&cnt=8&APPID=70e6dc0b2d58a825319d7e0ed833d482`;
-    return this.http.get(url);
+  getWeatherForecastData(city:string):Observable<IWeatherForecast>{
+    const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&cnt=8&APPID=70e6dc0b2d58a825319d7e0ed833d482`;
+    return this.http.get(url) as Observable<IWeatherForecast>;
   }
 
 }
