@@ -19,7 +19,20 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('HeaderComponent: should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`HeaderComponent: should have title as 'WEATHER FORECAST'.`, () => {
+    
+    expect(fixture.debugElement.nativeElement.innerText).toContain('WEATHER FORECAST');
+  });
+
+  it(`HeaderComponent: should have action`, () => {
+    
+    expect(fixture.debugElement.nativeElement.querySelector('button').innerText).toBe("Auto-refresh data in every 30 minutes");
+    component.isTimerStarted = true;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelector('button').innerText).toBe("Stop auto-refreshing");
   });
 });

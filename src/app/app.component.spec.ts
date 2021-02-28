@@ -33,11 +33,11 @@ describe('AppComponent', () => {
 
   });
 
-  it('should create the AppComponent', () => {
+  it('AppComponent: should create the AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getWeatherReportForCity and render details(card) for the city', () => {
+  it('AppComponent: should call getWeatherReportForCity and render details(card) for the city', () => {
     const city = "barcelona";
     const data: IWeatherData = {...CITY_WEATHER_DATA,...{key:city, isSuccess:true}};
 
@@ -53,13 +53,13 @@ describe('AppComponent', () => {
 
   });
 
-  it(`should have as title header 'WEATHER FORECAST'`, () => {
+  it(`sAppComponent: hould have as title header 'WEATHER FORECAST'`, () => {
     
     expect(fixture.debugElement.nativeElement.innerText).toContain('WEATHER FORECAST');
     expect(fixture.debugElement.nativeElement.querySelector('#cityInput')).toBeTruthy();    
   });
 
-  it(`should call openDlg method to show the details weather report.`, () => {
+  it(`AppComponent: should call openDlg method to show the details weather report.`, () => {
     const city = "barcelona";
     const data: IWeatherForecast = {...CITY_WEATHER_DATA,...{key: city, isSuccess: true, city: CITY_DETAIL, list: WEATHER_FORECAST_DTL}};
 
