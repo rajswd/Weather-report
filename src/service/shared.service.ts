@@ -13,7 +13,7 @@ export class SharedService {
   constructor(private http: HttpClient) { }
 
   getWeatherReportForCity(city:string){
-    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=70e6dc0b2d58a825319d7e0ed833d482`;
+    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=70e6dc0b2d58a825319d7e0ed833d482`;
 
       let sub = this.http.get(url).subscribe(res=>{
         this.weatherData$.next({...res, ...{isSuccess:true, key:city}});

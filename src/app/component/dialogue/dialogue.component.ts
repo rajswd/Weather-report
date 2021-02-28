@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ContentRef } from '@ng-bootstrap/ng-bootstrap/util/popup';
+import { IWeatherForecast, IForecastDtl, ICity } from '../interface/IweatherData';
+import { ICapability } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-dialogue',
@@ -11,7 +13,8 @@ export class DialogueComponent implements OnInit {
 
   @ViewChild('contentDlg') private modalContent?: TemplateRef<DialogueComponent>
 
-  cityReport:any;
+  cityReport?: ICity;
+  weatherDtl?: IForecastDtl;
 
   constructor(private config: NgbModalConfig, private modalService2: NgbModal){
     
@@ -25,9 +28,19 @@ export class DialogueComponent implements OnInit {
     
   }
   
-  openDialogue(selectedCity:any) {
-    this.cityReport = selectedCity;
+  openDialogue(selectedCity:IWeatherForecast) {
+    this.cityReport = selectedCity.city;
+    this.weatherDtl = selectedCity.list[0] || {};
     this.modalService2.open(this.modalContent, this.config);
+  }
+
+  getImgURL(): string{
+    return this.weatherDtl && this.weatherDtl.weather.length > 0 ? 
+     `http://openweathermap.org/img/wn/${this.weatherDtl?.weather[0].icon}@2x.png` : " " ;
+  }
+
+  getWeatherDecription(): string{
+    return this.weatherDtl && this.weatherDtl.weather.length > 0 ? this.weatherDtl?.weather[0]?.description : "-";
   }
 
 }

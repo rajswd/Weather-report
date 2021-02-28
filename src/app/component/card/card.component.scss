@@ -8,10 +8,16 @@
         box-shadow: 4px 4px 3px 3px #0d0c0c61;
     }
 
-    .card-header.text-center {
+    .card-header {
         background: #4b7f6d;
         color: #fff;
+        display: flex;
+        justify-content: space-between;
         text-transform: uppercase;
+
+        .image{
+            width: 12%;
+        }
     }
 
     .card-footer.text-center {

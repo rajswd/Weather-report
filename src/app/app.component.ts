@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { SharedService } from 'src/service/shared.service';
 import { Subscription } from 'rxjs';
 import { DialogueComponent } from './component/dialogue/dialogue.component';
+import { IWeatherData, IWeatherForecast, IForecastDtl } from './component/interface/IweatherData';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,9 @@ export class AppComponent implements OnInit, OnDestroy{
 
   @ViewChild('appDialogue')
   private dialogue?: DialogueComponent;
-  isLoading:boolean = true;
+  isLoading: boolean = true;
   private subscription: Subscription | undefined;
-  bhSubjectList:any[] = [];
+  weatherList: IWeatherData[] = [];
 
   toastMessage:any= {
     message:"",
@@ -22,9 +23,9 @@ export class AppComponent implements OnInit, OnDestroy{
     type:""
   };
 
-  toastMessageId:any;
-  interval:any;
-  cityList:string[] = ["amsterdam", "barcelona", "berlin", "london", "paris"];
+  toastMessageId: any;
+  interval: any;
+  cityList: string[] = ["amsterdam", "barcelona", "berlin", "london", "paris"];
 
   constructor(private sharedService:SharedService){}
 
@@ -38,14 +39,15 @@ export class AppComponent implements OnInit, OnDestroy{
  */
   subscribeService(){
 
-    this.subscription = this.sharedService.weatherData$.subscribe((data:any)=>{
+    this.subscription = this.sharedService.weatherData$.asObservable().subscribe((data:IWeatherData)=>{
 
                           const key:string = data.key.toLowerCase();
+                          const index = this.cityList.indexOf(key);
 
-                          if(data && this.cityList.indexOf(key) > -1){
-                            const weatherList = [...this.bhSubjectList];
-                            weatherList[this.cityList.indexOf(key)] = data;
-                            this.bhSubjectList = weatherList;
+                          if(data && index > -1){
+                            const t_weatherList = [...this.weatherList];
+                            t_weatherList[index] = data;
+                            this.weatherList = t_weatherList;
                           }
 
                           this.isLoading = false;
@@ -103,7 +105,7 @@ export class AppComponent implements OnInit, OnDestroy{
    */
   deleteCity(selectedCity:any){
     const index = this.cityList.indexOf(selectedCity.key);
-    this.bhSubjectList.splice(index,1);
+    this.weatherList.splice(index,1);
     const deltedData = this.cityList.splice(index,1);
 
     if(deltedData.length > 0){
@@ -114,16 +116,20 @@ export class AppComponent implements OnInit, OnDestroy{
   /**
    * Responsible for finding the nearest next hour weather data from data list.
    */
-  getNextHourWeatherData(list:any[]){
-    let selectedForecastData;
+  getNextHourWeatherData(list:IForecastDtl[]):IForecastDtl[] {
+    let selectedForecastData: IForecastDtl[] = [];
     const hours = new Date().getHours();
     for(let i = 0 , l = list.length ; i < l ; i++){
         if(new Date(list[i].dt_txt).getHours() >= hours || new Date(list[i].dt_txt) > new Date()){
-            selectedForecastData = list[i];
+            selectedForecastData.push(list[i]);
             i = l;
         }
     }
     return selectedForecastData;
+  }
+
+  showWeatherForecast(forecastData:any){
+    this.dialogue?.openDialogue(forecastData);
   }
 
   /**
@@ -131,12 +137,12 @@ export class AppComponent implements OnInit, OnDestroy{
    */
   openDlg(name:string) {
     this.isLoading = true;
-    this.sharedService.getWeatherForecastData(name).subscribe(resData => {
+    this.sharedService.getWeatherForecastData(name).subscribe((resData:IWeatherForecast) => {
 
-      const forecastData = {...this.getNextHourWeatherData(resData.list), ...{city:resData.city}};
+      const forecastData:IWeatherForecast = {list: this.getNextHourWeatherData(resData.list), ...{city:resData.city}};
       
       if(forecastData){
-        this.dialogue?.openDialogue({...forecastData});
+        this.showWeatherForecast(forecastData);
       }
       this.isLoading = false;
       

@@ -1,12 +1,13 @@
 
 <div  class="card card-columns">
 
-    <div class="card-header text-center"> 
-
-        {{cityReport?.name}}
-
-    <button type="button" class="close" aria-label="Close" (click)="deleteCity()">
-        <span aria-hidden="true">&times;</span>
+    <div class="card-header"> 
+        <div class="title-blk">
+                <img class="image" [src]="getImageURL()" />
+            {{cityReport?.name}}
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="deleteCity()">
+            <span aria-hidden="true">&times;</span>
         </button>
     </div>
 

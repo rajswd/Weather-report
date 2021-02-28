@@ -18,38 +18,38 @@ describe('SharedService', () => {
   });
   
   it('should call get on HttpClient with correct URL', () => {
-    const country = "TestCity";
-    const expectedUrl = `http://api.openweathermap.org/data/2.5/weather?q=${country}&appid=70e6dc0b2d58a825319d7e0ed833d482`; 
+    const city = "TestCity";
+    const expectedUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=70e6dc0b2d58a825319d7e0ed833d482`; 
 
     httpClientSpy.get.and.returnValue(cold('a|', {a: null}));
-    service.getWeatherReportForCountry(country);
+    service.getWeatherReportForCity(city);
     expect(httpClientSpy.get).toHaveBeenCalledWith(expectedUrl);
   });
   
   it('should emit new name on name$', () => {
-    const country = "TestCity";    
+    const city = "TestCity";    
     const getSpyMarbles =   '-a|';
     const expectedMarbles = '-c';
     
-    httpClientSpy.get.and.returnValue(cold(getSpyMarbles, { a: {name:country, key:country, isSuccess:true}}));
+    httpClientSpy.get.and.returnValue(cold(getSpyMarbles, { a: {name:city, key:city, isSuccess:true}}));
 
-    service.getWeatherReportForCountry(country);
+    service.getWeatherReportForCity(city);
 
-    const expected = cold(expectedMarbles, {c: {name:country, key:country, isSuccess:true}});
-    expect(service.subject$.asObservable()).toBeObservable(expected);
+    const expected = cold(expectedMarbles, {c: {name:city, key:city, isSuccess:true}});
+    expect(service.weatherData$.asObservable()).toBeObservable(expected);
   });
 
   it('should emit nothing on name$ if an error occurs', () => {
-    const country = "TestCity";
+    const city = "TestCity";
     const getSpyMarbles =   '-#|';
     const expectedMarbles = '-b';
 
     httpClientSpy.get.and.returnValue(cold(getSpyMarbles));
 
-    service.getWeatherReportForCountry(country);
+    service.getWeatherReportForCity(city);
 
-    const expected = cold(expectedMarbles, { b: {name:country, key:country, isSuccess:false}});
-    expect(service.subject$.asObservable()).toBeObservable(expected);
+    const expected = cold(expectedMarbles, { b: {name:city, key:city, isSuccess:false}});
+    expect(service.weatherData$.asObservable()).toBeObservable(expected);
   });
 
 });
