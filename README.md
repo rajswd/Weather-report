@@ -22,9 +22,9 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-# Weather APP
+# About 
 
-## About
+## Weather APP
 - We will use Open Weather Data to create a single page application that presents a list of 5 European cities 
 
 ## Goal
