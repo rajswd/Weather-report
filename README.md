@@ -25,15 +25,16 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 # About 
 
 ## Weather APP
-- We will use Open Weather Data to create a single page application that presents a list of 5 European cities 
+- It is a single page application that presents weather data for the ist of 5 European cities.
+- User has facility to see weather data for the interested city. 
 
 ## Goal
 - To get the current weather situation displaying the city name plus average temperature and the wind strength. Clicking on an item shows the forecast in the next hours.
-- Also user can also add the favourite city to see the weather detial by clicking on Add button. Expectation is the city name should have atleast 3 characters long otherwise it will show an error message.
-- By clicking on 'Weather Forecast' button in each card user can see the next hour weather details, which will show in dialogue.
-- User also can set timer to refresh the weather data in every 30 minutes by clicking the button(i.e.  Auto-refresh data in every 30 minutes );
-- Once the timer will start the action button will changes to ' Stop auto-refreshing ' button. By using this button we can stop the timer.
-- There is another button, which appear after 'Add' button is responsible for refreshing the weather data at the same time.
+- User can add any city to see the weather detial by clicking on Add button. Here the city name should have atleast 3 characters long otherwise it will show an error message.
+- By clicking on 'Weather Forecast' button user can see the next hour weather details.
+- User can set timer too, to refresh the weather data in every 30 minutes by clicking the button(i.e.  Auto-refresh data in every 30 minutes );
+- Once the timer will start the action button will changes to ' Stop auto-refreshing '. By using this button user can stop the timer.
+- There is another button known as refresh data, which appear after 'Add' button is responsible for refreshing the weather data at the same time.
 
 ## Tech
 - Angular 11
