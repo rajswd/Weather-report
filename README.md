@@ -48,7 +48,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - Name: Raj kumar singh
 - Linkedin: https://www.linkedin.com/in/getsingh/
 - email: raj.swd1@gmail.com
-- Github: https://github.com/rajswd/Wether-report
+- https://github.com/rajswd/Weather-report
 
 -Note: Please share feedback if you have any.
 
