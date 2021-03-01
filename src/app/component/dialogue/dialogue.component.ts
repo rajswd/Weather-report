@@ -16,7 +16,7 @@ export class DialogueComponent implements OnInit {
   cityReport?: ICity;
   weatherDtl?: IForecastDtl;
 
-  constructor(private config: NgbModalConfig, private modalService2: NgbModal){
+  constructor(private config: NgbModalConfig, private modalService: NgbModal){
     
     config.keyboard = false;
     config.animation = true;
@@ -31,7 +31,7 @@ export class DialogueComponent implements OnInit {
   openDialogue(selectedCity:IWeatherForecast) {
     this.cityReport = selectedCity.city;
     this.weatherDtl = selectedCity.list[0] || {};
-    this.modalService2.open(this.modalContent, this.config);
+    this.modalService.open(this.modalContent, this.config);
   }
 
   getImgURL(): string{

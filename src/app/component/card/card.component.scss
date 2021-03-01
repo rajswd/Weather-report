@@ -5,7 +5,7 @@
     max-width: 31em;
 
     &:hover{
-        box-shadow: 4px 4px 3px 3px #0d0c0c61;
+        box-shadow: 2px 2px 8px 0px #000;
     }
 
     .card-header {
@@ -13,11 +13,18 @@
         color: #fff;
         display: flex;
         justify-content: space-between;
+        padding-left: .1em;
         text-transform: uppercase;
 
-        .image{
-            width: 12%;
+        .title-blk {
+            display: flex;
+            align-items: center;
+
+            .image{
+                width: 23%;
+            }
         }
+        
     }
 
     .card-footer.text-center {
