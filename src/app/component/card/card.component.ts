@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { IWeatherData }  from '../interface/IweatherData';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IWeatherData } from '../interface/IweatherData';
 
 @Component({
   selector: 'app-card',
@@ -12,10 +12,10 @@ export class CardComponent implements OnInit {
   cityReport?: IWeatherData = {} as IWeatherData;
 
   @Output()
-  onDeleteWidget:EventEmitter<any> = new EventEmitter();
+  clickDeleteWidget: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  onWeatherForcast:EventEmitter<any> = new EventEmitter();
+  handleWeatherForcast: EventEmitter<any> = new EventEmitter();
 
 
   constructor() { }
@@ -23,17 +23,17 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteCity(){
-    this.onDeleteWidget.emit({key: this.cityReport?.key, name: this.cityReport?.name});
+  deleteCity(): void{
+    this.clickDeleteWidget.emit({key: this.cityReport?.key, name: this.cityReport?.name});
   }
 
-  getImageURL():string{
+  getImageURL(): string{
     return this.cityReport?.weather && this.cityReport.weather.length > 0 ?
-      `http://openweathermap.org/img/wn/${this.cityReport.weather[0].icon}@2x.png` : " " ;
+      `http://openweathermap.org/img/wn/${this.cityReport.weather[0].icon}@2x.png` : ' ' ;
   }
 
-  openWeatherDetail() {
-    this.onWeatherForcast.emit(this.cityReport?.key);
+  openWeatherDetail(): void{
+    this.handleWeatherForcast.emit(this.cityReport?.key);
   }
 
 }

@@ -8,8 +8,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   @Output()
-  headerEvent:EventEmitter<any> = new EventEmitter();
-  isTimerStarted:boolean = false;
+  headerEvent: EventEmitter<any> = new EventEmitter();
+  isTimerStarted = false;
 
   constructor() { }
 
@@ -17,13 +17,13 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  startTimer(){
-    this.headerEvent.emit({flag:true});
+  startTimer(): void{
+    this.headerEvent.emit({flag: true});
     this.isTimerStarted = true;
   }
 
-  stopTimer(){
-    this.headerEvent.emit({flag:false});
+  stopTimer(): void{
+    this.headerEvent.emit({flag: false});
     this.isTimerStarted = false;
   }
 

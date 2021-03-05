@@ -24,7 +24,7 @@ interface ISys{
 
 interface IWeahter{
     id: number;
-    main : string;
+    main: string;
     description: string;
     icon: string;
 }
@@ -47,14 +47,14 @@ export interface IWeatherData{
     name: string;
     sys: ISys;
     timezone: number;
-    visibility: number,
+    visibility: number;
     weather: IWeahter[];
     wind: IWind;
 }
 
 interface ICord{
-    lat: number,
-    lon: number
+    lat: number;
+    lon: number;
 }
 
 export interface ICity {
@@ -66,16 +66,16 @@ export interface ICity {
     timezone: number;
     sunrise: number;
     sunset: number;
-  };
+  }
 
-  export interface IForecastDtl{
+export interface IForecastDtl{
     dt: number;
     main: IMain;
     weather: IWeahter[];
     clouds: ICloud;
     wind: IWind;
-    visibility: number,
-    pop: number,
+    visibility: number;
+    pop: number;
     sys: any;
     dt_txt: string;
   }

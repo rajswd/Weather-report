@@ -2,7 +2,7 @@
   <div class="loading"> Loading...</div>
 </div>
 
-<app-dialogue #appDialogue></app-dialogue>
+<app-dialogue></app-dialogue>
 
 <app-header (headerEvent)="headerEvent($event)"></app-header>
 
@@ -63,8 +63,8 @@
       <app-card
         *ngFor="let cityData of weatherList; let indx = index;"
         [cityReport]="cityData"
-        (onDeleteWidget)="deleteCity($event)"
-        (onWeatherForcast)="openDlg($event)"
+        (clickDeleteWidget)="deleteCity($event)"
+        (handleWeatherForcast)="openDlg($event)"
       >
       </app-card>
 

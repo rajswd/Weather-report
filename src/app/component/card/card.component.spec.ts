@@ -27,50 +27,50 @@ describe('CardComponent', () => {
   });
 
   it('CardComponent: should have render the card with correct data label', () => {
-    const city = "barcelona";
-    const data: IWeatherData = {...CITY_WEATHER_DATA,...{key:city, isSuccess:true}};
+    const city = 'barcelona';
+    const data: IWeatherData = {...CITY_WEATHER_DATA, ...{key: city, isSuccess: true}};
 
     component.cityReport = data;
     fixture.detectChanges();
-  
+
     expect(fixture.debugElement.nativeElement.querySelector('.card.card-columns')).toBeTruthy();
     expect(fixture.debugElement.nativeElement.innerText).toContain(data.name.toLocaleUpperCase());
-    expect(fixture.debugElement.nativeElement.innerText).toContain("Avg Temparature");
-    expect(fixture.debugElement.nativeElement.innerText).toContain("Wind strength");
+    expect(fixture.debugElement.nativeElement.innerText).toContain('Avg Temparature');
+    expect(fixture.debugElement.nativeElement.innerText).toContain('Wind strength');
   });
 
   it('CardComponent: should have render action button and emit @Output for weather forecast', () => {
-    const city = "barcelona";
-    const data: IWeatherData = {...CITY_WEATHER_DATA,...{key:city, isSuccess:true}};
+    const city = 'barcelona';
+    const data: IWeatherData = {...CITY_WEATHER_DATA, ...{key: city, isSuccess: true}};
     component.cityReport = data;
-  
+
     fixture.detectChanges();
     const actionButton = fixture.debugElement.nativeElement.querySelector('button.btn-warning');
     expect(actionButton).toBeTruthy();
-    expect(actionButton.innerText).toBe("Weather Forecast");
+    expect(actionButton.innerText).toBe('Weather Forecast');
 
-    spyOn(component.onWeatherForcast,'emit');
+    spyOn(component.handleWeatherForcast, 'emit');
     actionButton.click();
     fixture.detectChanges();
-    expect(component.onWeatherForcast.emit).toHaveBeenCalledWith(city);
+    expect(component.handleWeatherForcast.emit).toHaveBeenCalledWith(city);
 
   });
 
-  it("CardComponent: @Output should have call for the delete the card ",() => {
-    const city = "barcelona";
-    const data: IWeatherData = {...CITY_WEATHER_DATA,...{key:city, isSuccess:true}};
+  it('CardComponent: @Output should have call for the delete the card ', () => {
+    const city = 'barcelona';
+    const data: IWeatherData = {...CITY_WEATHER_DATA, ...{key: city, isSuccess: true}};
     component.cityReport = data;
 
     fixture.detectChanges();
-    const actionButton = fixture.debugElement.nativeElement.querySelector("[aria-label=Close]");
+    const actionButton = fixture.debugElement.nativeElement.querySelector('[aria-label=Close]');
     expect(actionButton).toBeTruthy();
 
     const expectedMarbles = '-b|';
 
-    spyOn(component.onDeleteWidget,'emit');
+    spyOn(component.clickDeleteWidget, 'emit');
     actionButton.click();
     fixture.detectChanges();
-    expect(component.onDeleteWidget.emit).toHaveBeenCalledWith({key: data.key, name: data.name});
+    expect(component.clickDeleteWidget.emit).toHaveBeenCalledWith({key: data.key, name: data.name});
 
   });
 
